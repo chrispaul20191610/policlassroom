@@ -1,9 +1,17 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import User from "./api/user";
 import Image from "next/image";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  Modal,
+} from "@material-ui/core";
 
 const schema = yup.object().shape({
   name: yup.string().required("Este campo es obligatorio"),
@@ -27,10 +35,10 @@ const schema = yup.object().shape({
 
 const register = () => {
   const {
-    register,
     handleSubmit,
     watch,
     reset,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -39,7 +47,25 @@ const register = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [result, setResult] = useState(null);
   const [errorsList, setErrorsList] = useState([]);
+  const [state, setState] = useState(false);
+  const [checkRole, setCheckRole] = useState(null);
 
+  const handleOpen = () => {
+    setState(true);
+  };
+
+  const handleClose = () => {
+    setState(false);
+  };
+
+  const handleRol = () => {
+    if (watch("role") == "ROLE_TEACHER") {
+      setCheckRole("Con este rol crea tu curso en nuestra página");
+    }
+    if (watch("role") == "ROLE_STUDENT") {
+      setCheckRole("Con este rol inscríbite en cualquiera de nuestros cursos");
+    }
+  };
   const onSubmit = async (formData) => {
     setUserInfo(null);
     setResult("Enviando los datos...");
@@ -52,8 +78,8 @@ const register = () => {
       const response = await User.register(formData);
       console.log("response", response);
       setUserInfo(response.data);
-      reset();
       setResult("Usuario registrado correctamente =D");
+      reset();
     } catch (e) {
       console.log("e", e.response);
       const { response } = e;
@@ -73,115 +99,217 @@ const register = () => {
     }
   };
 
-  console.log(watch("role"));
+  let styleForm = {
+    margin: "2% 35%",
+    textAlign: "center",
+    background: "white",
+  };
 
-  let style = {
-    display: "table-caption",
-    margin: "20px",
+  let styleError = {
+    color: "red",
   };
 
   return (
     <div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={style}
-        encType="multipart/form-data"
-      >
-        <div>
-          <input
-            {...register("name", { required: true })}
-            type="name"
-            placeholder="Nombre"
-          />
-          <p>{errors.name?.message}</p>
-        </div>
+      <Button type="button" color="primary" onClick={handleOpen}>
+        Registro
+      </Button>
+      <Modal open={state} onClose={handleClose}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          style={styleForm}
+          encType="multipart/form-data"
+        >
+          <h2>Ingrese sus datos</h2>
 
-        <div>
-          <input
-            {...register("last_name", { required: true })}
-            type="last_name"
-            placeholder="Apellido"
-          />
-          <p>{errors.last_name?.message}</p>
-        </div>
+          <div>
+            <Controller
+              name="name"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Nombre"
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            />
+            <p style={styleError}>{errors.name?.message}</p>
+          </div>
 
-        <div>
-          <textarea
-            {...register("description", { required: true })}
-            placeholder="Descripción"
-          />
-          <p>{errors.description?.message}</p>
-        </div>
+          <div>
+            <Controller
+              name="last_name"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Apellido"
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            />
+            <p style={styleError}>{errors.last_name?.message}</p>
+          </div>
 
-        <div>
-          <select {...register("role")}>
+          <div>
+            <Controller
+              name="description"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Sobre mí"
+                  variant="outlined"
+                  size="medium"
+                  multiline
+                  maxRows={3}
+                />
+              )}
+            />
+            <p style={styleError}>{errors.description?.message}</p>
+          </div>
+
+          <div>
+            <Controller
+              name="role"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <div>
+                  <InputLabel>Mi rol</InputLabel>
+                  <Select
+                    {...field}
+                    label="Role"
+                    variant="outlined"
+                    size="small"
+                    onClick={handleRol}
+                  >
+                    <MenuItem value="ROLE_STUDENT">ESTUDIANTE</MenuItem>
+                    <MenuItem value="ROLE_TEACHER">PROFESOR</MenuItem>
+                  </Select>
+                </div>
+              )}
+            />
+            <p>Nota: {checkRole}</p>
+
+            {/* <select {...register("role")}>
             <option value="ROLE_STUDENT">ESTUDIANTE</option>
             <option value="ROLE-TEACHER">PROFESOR</option>
-          </select>
-          <p>{errors.role?.message}</p>
-        </div>
+          </select> */}
+            <p style={styleError}>{errors.role?.message}</p>
+          </div>
 
-        <div>
-          <input
-            {...register("email", { required: true })}
-            type="email"
-            placeholder="Correo electrónico"
-          />
-          <p>{errors.email?.message}</p>
-        </div>
+          <div>
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  type="email"
+                  label="Correo electrónico"
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            />
+            <p style={styleError}>{errors.email?.message}</p>
+          </div>
 
-        <div>
-          <input
-            {...register("password", { required: true })}
-            type="password"
-            placeholder="Contraseña"
-          />
-          <p>{errors.password?.message}</p>
-        </div>
+          <div>
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  type="password"
+                  label="Contraseña"
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            />
+            <p style={styleError}>{errors.password?.message}</p>
+          </div>
 
-        <div>
-          <input
-            {...register("password_confirmation", { required: true })}
-            type="password"
-            placeholder="Confirme su contraseña"
-          />
-          <p>{errors.password_confirmation?.message}</p>
-        </div>
+          <div>
+            <Controller
+              name="password_confirmation"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  type="password"
+                  label="Confirma tu contraseña"
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            />
+            <p style={styleError}>{errors.password_confirmation?.message}</p>
+          </div>
 
-        <div>
-          <input
-            {...register("avatar", { required: true })}
-            type="avatar"
-            placeholder="Avatar"
-          />
-          {/* <input
+          <div>
+            <Controller
+              name="avatar"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  label="Avatar"
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            />
+            {/* <input
             {...register("avatar", { required: true })}
             type="file"
             name="imagen"
           /> */}
-          <p>{errors.avatar?.message}</p>
-        </div>
-
-        <p>{result}</p>
-        {userInfo && (
-          <div>
-            <Image src={userInfo.user.avatar} width={640} height={480} />
-            <div>Nombre: {userInfo.user.name}</div>
-            <div>Apellido: {userInfo.user.last_name}</div>
-            <div>Role: {userInfo.user.role}</div>
-            <div>Token: {userInfo.token}</div>
+            <p style={styleError}>{errors.avatar?.message}</p>
           </div>
-        )}
 
-        {errorsList.length > 0 && (
-          <ul>
-            {errorsList.map((errorList) => (
-              <li key={errorList}>{errorList}</li>
-            ))}
-          </ul>
-        )}
-        <input type="submit" />
-      </form>
+          <p>{result}</p>
+          {userInfo && (
+            <div>
+              <Image src={userInfo.user.avatar} width={640} height={480} />
+              <div>Nombre: {userInfo.user.name}</div>
+              <div>Apellido: {userInfo.user.last_name}</div>
+              <div>Role: {userInfo.user.role}</div>
+              <div>Token: {userInfo.token}</div>
+            </div>
+          )}
+
+          {errorsList.length > 0 && (
+            <ul>
+              {errorsList.map((errorList) => (
+                <li key={errorList}>{errorList}</li>
+              ))}
+            </ul>
+          )}
+          <Button
+            type="submit"
+            variant="contained"
+            size="medium"
+            color="primary"
+          >
+            {" "}
+            REGISTRARSE{" "}
+          </Button>
+        </form>
+      </Modal>
     </div>
   );
 };
