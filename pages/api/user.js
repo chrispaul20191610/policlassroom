@@ -6,6 +6,11 @@ const User = {
       ...userData,
     });
   },
+  login: (credentials) => {
+    return api.post("/login", {
+      ...credentials,
+    });
+  },
 };
 
 export default User;
