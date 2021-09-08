@@ -13,7 +13,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "@/styles/theme";
 import { AuthProvider } from "../contexts/auth";
-import Logout from "@/components/Logout";
+import Logout from "../componets/logout";
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;

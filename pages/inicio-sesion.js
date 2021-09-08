@@ -1,7 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
-import User from "./api/user";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { useAuth } from "../contexts/auth";
+import withoutAuth from "../hocs/withoutAuth";
 import { Button, Modal, TextField } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -31,13 +31,7 @@ const login = () => {
   const [result, setResult] = useState("");
   const [token, setToken] = useState("");
   const [state, setState] = useState(false);
-  const [session, loading] = useSession();
-
-  console.log("session", session);
-  console.log("loading", loading);
-  const user = session?.user;
-  console.log("user", user);
-
+  const { login } = useAuth();
   const handleOpen = () => {
     setState(true);
   };
@@ -52,7 +46,7 @@ const login = () => {
     console.log("credentials", credentials);
 
     try {
-      const response = await User.login(credentials);
+      const response = await login(credentials);
       console.log("response", response);
       setToken(response.data);
       setResult("Usuario logeado correctamente =D");
@@ -87,18 +81,6 @@ const login = () => {
   };
   return (
     <div>
-      <button onClick={() => signIn("github")}>Inicie Sesión con GitHub</button>
-
-      {user && (
-        <div>
-          <img src={user.image} width="420" />
-          <h2>{user.name}</h2>
-          <button onClick={() => signOut("github")}>Cerrar Sesión</button>
-        </div>
-      )}
-
-      <br></br>
-
       <Button type="button" color="primary" onClick={handleOpen}>
         Inicio de Sesión
       </Button>
@@ -174,4 +156,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default withoutAuth(login);
