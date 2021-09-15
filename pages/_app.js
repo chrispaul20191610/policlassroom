@@ -15,6 +15,7 @@ import theme from "@/styles/theme";
 import { AuthProvider } from "../contexts/auth";
 import Logout from "../componets/logout";
 
+
 export default function MyApp(props) {
   const { Component, pageProps } = props;
 
@@ -41,6 +42,7 @@ export default function MyApp(props) {
           <CssBaseline />
 
           <Logout />
+          
           <Component {...pageProps} />
         </ThemeProvider>
       </AuthProvider>

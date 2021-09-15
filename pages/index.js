@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
+
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -15,6 +16,8 @@ export default function Home() {
       <Link href="/inicio-sesion">Ir al Inicio de sesion</Link>
       <br></br>
       <Link href="/courses">Cursos</Link>
+     
+      <Link href="/profile">perfil</Link>
     </div>
   );
 }
