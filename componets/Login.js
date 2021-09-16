@@ -81,7 +81,7 @@ const login = () => {
   };
   return (
     <div>
-      <Button type="button" color="primary" onClick={handleOpen}>
+      <Button type="button" color="secondary" onClick={handleOpen}>
         Inicio de Sesión
       </Button>
       <Modal open={state} onClose={handleClose}>

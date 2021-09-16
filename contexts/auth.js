@@ -41,7 +41,7 @@ function useAuthProvider() {
     }
   };
 
-  async function register(data) {
+  async function registerUser(data) {
     try {
       const response = await User.register(data);
       console.log("response", response);
@@ -162,7 +162,7 @@ function useAuthProvider() {
   }, []);
   return {
     user,
-    register,
+    registerUser,
     login,
     logout,
     sendPasswordResetEmail,
