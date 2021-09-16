@@ -11,9 +11,9 @@ export default function Home() {
       </Head>
 
       <h1>Bienvenidos!!</h1>
-      <Link href="/registro">Ir al Registro</Link>
+      <Link href="/register">Ir al Registro</Link>
       <br></br>
-      <Link href="/inicio-sesion">Ir al Inicio de sesion</Link>
+      <Link href="/login">Ir al Inicio de sesion</Link>
       <br></br>
       <Link href="/courses">Cursos</Link>
      

@@ -2,9 +2,7 @@ import api from "./index";
 
 const User = {
   register: (userData) => {
-    return api.post("/register", {
-      ...userData,
-    });
+    return api.post("/register", userData);
   },
   login: (data) => {
     return api.post("/login", data);
