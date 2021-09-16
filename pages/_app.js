@@ -15,6 +15,7 @@ import theme from "@/styles/theme";
 import { AuthProvider } from "../contexts/auth";
 import Header from "../componets/Header";
 
+
 export default function MyApp(props) {
   const { Component, pageProps } = props;
 
@@ -39,8 +40,9 @@ export default function MyApp(props) {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-
+  
           <Header />
+
           <Component {...pageProps} />
         </ThemeProvider>
       </AuthProvider>

@@ -1,0 +1,24 @@
+.header{
+
+}
+.button{
+    text-decoration: none;
+    color: black;
+}
+.title{
+    text-align: center;
+    margin: 0;
+}
+.section{
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+}
+.info{
+    width: 35%;
+}
+.teacher{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
