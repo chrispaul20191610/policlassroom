@@ -1,0 +1,17 @@
+.head {
+  background: #408ab4;
+  padding-top: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 5%;
+}
+
+.form {
+  margin: 5% 35%;
+  text-align: center;
+  background: white;
+  border: #0c94ff 5px solid;
+}

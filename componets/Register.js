@@ -1,8 +1,10 @@
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
-import { useAuth } from "../contexts/auth";
+import styled from "styled-components";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import styles from "../styles/Register.module.css";
+import { useAuth } from "../contexts/auth";
 import {
   Button,
   TextField,
@@ -108,16 +110,6 @@ const register = () => {
     }
   };
 
-  let styleForm = {
-    margin: "2% 35%",
-    textAlign: "center",
-    background: "white",
-  };
-
-  let styleError = {
-    color: "red",
-  };
-
   return (
     <div>
       <Button type="button" color="secondary" onClick={handleOpen}>
@@ -126,10 +118,13 @@ const register = () => {
       <Modal open={state} onClose={handleClose}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          style={styleForm}
+          className={styles.form}
           encType="multipart/form-data"
         >
-          <h2>Ingrese sus datos</h2>
+          <div className={styles.head}>
+            <Title>BIENVENIDO A POLICLASSROOM</Title>
+            <Subtitle> Crea una cuenta gratuita </Subtitle>
+          </div>
 
           <div>
             <Controller
@@ -142,10 +137,11 @@ const register = () => {
                   label="Nombre"
                   variant="outlined"
                   size="small"
+                  color="primary"
                 />
               )}
             />
-            <p style={styleError}>{errors.name?.message}</p>
+            <Error>{errors.name?.message}</Error>
           </div>
 
           <div>
@@ -159,10 +155,11 @@ const register = () => {
                   label="Apellido"
                   variant="outlined"
                   size="small"
+                  color="primary"
                 />
               )}
             />
-            <p style={styleError}>{errors.last_name?.message}</p>
+            <Error>{errors.last_name?.message}</Error>
           </div>
 
           <div>
@@ -178,10 +175,11 @@ const register = () => {
                   size="medium"
                   multiline
                   maxRows={3}
+                  color="primary"
                 />
               )}
             />
-            <p style={styleError}>{errors.description?.message}</p>
+            <Error>{errors.description?.message}</Error>
           </div>
 
           <div>
@@ -198,6 +196,7 @@ const register = () => {
                     variant="outlined"
                     size="small"
                     onClick={handleRol}
+                    color="primary"
                   >
                     <MenuItem value="ROLE_STUDENT">ESTUDIANTE</MenuItem>
                     <MenuItem value="ROLE_TEACHER">PROFESOR</MenuItem>
@@ -205,13 +204,14 @@ const register = () => {
                 </div>
               )}
             />
-            <p>Nota: {checkRole}</p>
-
+            <div className={styles.note}>
+              <p> NOTA = {checkRole}</p>
+            </div>
             {/* <select {...register("role")}>
             <option value="ROLE_STUDENT">ESTUDIANTE</option>
             <option value="ROLE-TEACHER">PROFESOR</option>
           </select> */}
-            <p style={styleError}>{errors.role?.message}</p>
+            <Error>{errors.role?.message}</Error>
           </div>
 
           <div>
@@ -226,10 +226,11 @@ const register = () => {
                   label="Correo electrónico"
                   variant="outlined"
                   size="small"
+                  color="primary"
                 />
               )}
             />
-            <p style={styleError}>{errors.email?.message}</p>
+            <Error>{errors.email?.message}</Error>
           </div>
 
           <div>
@@ -244,10 +245,11 @@ const register = () => {
                   label="Contraseña"
                   variant="outlined"
                   size="small"
+                  color="primary"
                 />
               )}
             />
-            <p style={styleError}>{errors.password?.message}</p>
+            <Error>{errors.password?.message}</Error>
           </div>
 
           <div>
@@ -262,10 +264,11 @@ const register = () => {
                   label="Confirma tu contraseña"
                   variant="outlined"
                   size="small"
+                  color="primary"
                 />
               )}
             />
-            <p style={styleError}>{errors.password_confirmation?.message}</p>
+            <Error>{errors.password_confirmation?.message}</Error>
           </div>
 
           <div>
@@ -273,13 +276,13 @@ const register = () => {
               type="file"
               id="avatar"
               name="avatar"
+              className={styles.select}
               {...register("avatar")}
             />
-
-            <p style={styleError}>{errors.avatar?.message}</p>
+            <Error>{errors.avatar?.message}</Error>
           </div>
 
-          <p>{result}</p>
+          <Subtitle>{result}</Subtitle>
 
           {errorsList.length > 0 && (
             <ul>
@@ -288,15 +291,27 @@ const register = () => {
               ))}
             </ul>
           )}
-          <Button
-            type="submit"
-            variant="contained"
-            size="medium"
-            color="primary"
-          >
-            {" "}
-            REGISTRARSE{" "}
-          </Button>
+
+          <div className={styles.buttons}>
+            <Button
+              type="submit"
+              variant="contained"
+              size="medium"
+              color="primary"
+            >
+              {" "}
+              REGISTRARSE{" "}
+            </Button>
+            <Button
+              variant="contained"
+              size="medium"
+              color="primary"
+              onClick={handleClose}
+            >
+              {" "}
+              CANCELAR{" "}
+            </Button>
+          </div>
         </form>
       </Modal>
     </div>
@@ -304,3 +319,18 @@ const register = () => {
 };
 
 export default register;
+
+const Title = styled.h2`
+  flex-grow: 1;
+  color: white;
+`;
+
+const Subtitle = styled.h4`
+  flex-grow: 1;
+  color: white;
+`;
+
+const Error = styled.h4`
+  flex-grow: 1;
+  color: red;
+`;

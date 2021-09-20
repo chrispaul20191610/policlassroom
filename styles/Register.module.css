@@ -1,0 +1,30 @@
+.head {
+  background: #408ab4;
+  padding-top: 5px;
+}
+
+.form {
+  margin: 2% 30%;
+  text-align: center;
+  background: white;
+  border: #0c94ff 5px solid;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 5%;
+}
+
+.select {
+  background-color: #0c94ff;
+  color: white;
+}
+
+.note {
+  border: white 4px inset;
+  width: fit-content;
+  color: black;
+  font-weight: bold;
+  margin: auto;
+}

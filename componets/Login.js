@@ -1,10 +1,11 @@
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
-import { useAuth } from "../contexts/auth";
-import withoutAuth from "../hocs/withoutAuth";
+import styled from "styled-components";
 import { Button, Modal, TextField } from "@material-ui/core";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useAuth } from "../contexts/auth";
+import styles from "../styles/Login.module.css";
 
 const schema = yup.object().shape({
   email: yup
@@ -17,7 +18,7 @@ const schema = yup.object().shape({
     .required("Este campo es obligatorio"),
 });
 
-const login = () => {
+const Login = () => {
   const {
     handleSubmit,
     reset,
@@ -29,7 +30,6 @@ const login = () => {
 
   const [error, setError] = useState("");
   const [result, setResult] = useState("");
-  const [token, setToken] = useState("");
   const [state, setState] = useState(false);
   const { login } = useAuth();
   const handleOpen = () => {
@@ -48,7 +48,6 @@ const login = () => {
     try {
       const response = await login(credentials);
       console.log("response", response);
-      setToken(response.data);
       setResult("Usuario logeado correctamente =D");
       reset();
     } catch (e) {
@@ -59,26 +58,13 @@ const login = () => {
       if (response) {
         if (response.data.error) {
           const error = response.data.error;
+          console.log(error);
           setError(error);
         }
       }
     }
   };
 
-  let styleButtons = {
-    justifyContent: "space-between",
-    display: "flex",
-    margin: "auto 5%",
-  };
-  let styleForm = {
-    margin: "7% 30%",
-    textAlign: "center",
-    background: "white",
-  };
-
-  let styleError = {
-    color: "red",
-  };
   return (
     <div>
       <Button type="button" color="secondary" onClick={handleOpen}>
@@ -86,9 +72,11 @@ const login = () => {
       </Button>
       <Modal open={state} onClose={handleClose}>
         <div>
-          <form onSubmit={handleSubmit(onSubmit)} style={styleForm}>
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div>
-              <h2> INICIO DE SESIÓN</h2>
+              <div className={styles.head}>
+                <Title> INICIO DE SESIÓN </Title>
+              </div>
               <Controller
                 name="email"
                 control={control}
@@ -100,10 +88,11 @@ const login = () => {
                     label="Correo electrónico"
                     variant="outlined"
                     size="small"
+                    color="primary"
                   />
                 )}
               />
-              <p style={styleError}>{errors.email?.message}</p>
+              <Error>{errors.email?.message}</Error>
             </div>
 
             <div>
@@ -118,13 +107,17 @@ const login = () => {
                     label="Contraseña"
                     variant="outlined"
                     size="small"
+                    color="primary"
                   />
                 )}
               />
-              <p style={styleError}>{errors.password?.message}</p>
+              <Error>{errors.password?.message}</Error>
             </div>
 
-            <div style={styleButtons}>
+            <Result> {result}</Result>
+            {error && <Error>{error}</Error>}
+
+            <div className={styles.buttons}>
               <Button
                 type="submit"
                 variant="contained"
@@ -144,11 +137,6 @@ const login = () => {
                 CANCELAR{" "}
               </Button>
             </div>
-
-            <p>{result}</p>
-
-            {token && <p>TOKEN:{token.token}</p>}
-            {error && <p>{error}</p>}
           </form>
         </div>
       </Modal>
@@ -156,4 +144,19 @@ const login = () => {
   );
 };
 
-export default withoutAuth(login);
+export default Login;
+
+const Title = styled.h2`
+  flex-grow: 1;
+  color: white;
+`;
+
+const Result = styled.h4`
+  flex-grow: 1;
+  color: black;
+`;
+
+const Error = styled.h4`
+  flex-grow: 1;
+  color: red;
+`;
