@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/courses.module.css";
 import { Button } from "@material-ui/core";
+import withoutAuth from "hocs/withoutAuth";
 
 const CoursesPage = ({ courses }) => {
   if (!courses) {
@@ -50,7 +51,7 @@ const CoursesPage = ({ courses }) => {
   );
 };
 
-export default CoursesPage;
+export default withoutAuth(CoursesPage);
 
 export async function getStaticProps() {
   let courses = [];
