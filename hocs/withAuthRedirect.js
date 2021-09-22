@@ -33,6 +33,6 @@ export default function withAuthRedirect({
       router.push(location || Routes.HOME); // todo set from location
       return null;
     }
-    return <WrappedComponent {...props} />;
+    return <WrappedComponent {...props} user={user} />;
   };
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import Logout from "./Logout";
+import Profile from "./Profile";
 import { useAuth } from "../contexts/auth";
 
 const ProfileMenu = () => {
@@ -43,7 +44,9 @@ const ProfileMenu = () => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Profile />
+        </MenuItem>
         <MenuItem onClick={handleClose}>
           <Logout />
         </MenuItem>

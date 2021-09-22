@@ -10,7 +10,9 @@ const Logout = () => {
   };
   return (
     <div>
-      <Button onClick={handleLogout}>Cerrar sesión</Button>
+      <Button onClick={handleLogout} color="primary">
+        Cerrar sesión
+      </Button>
     </div>
   );
 };
