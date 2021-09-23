@@ -6,46 +6,55 @@ import Link from "next/link";
 import styles from "@/styles/courses.module.css";
 import { Button } from "@material-ui/core";
 import withoutAuth from "hocs/withoutAuth";
+import Loading from "../componets/loading";
 
 const CoursesPage = ({ courses }) => {
-  if (!courses) {
-    return "Cargando cursos ...";
-  }
+
+
+    if (courses === null) {
+        return <Loading/>;
+    }
+
   return (
-    <div className={styles.body}>
+    <div >
       <Head>
         <title>PoliClassroom</title>
       </Head>
 
-      <h1 className={styles.title}>Inscribite a nuestros cursos</h1>
-      <div className={styles.courses}>
-        {courses.map((course) => (
-          <div key={course.id} className={styles.course}>
-            <div className={styles.coursecontenido}>
-              <Link href={`/courses/${course.id}`}>
-                <h2 className={styles.name}>{course.name}</h2>
-              </Link>
 
-              <Link href={`/courses/${course.id}`}>
-                <Image
-                  src={course.photo}
-                  width={300}
-                  height={200}
-                  justifyContent="center"
-                />
-              </Link>
+      <div className={styles.body}>
 
-              <div className={styles.description}>{course.description}</div>
-              <Button
-                variant="contained"
-                color="primary"
-                href={`/courses/${course.id}`}
-              >
-                Inscribete
-              </Button>
-            </div>
+          <h1 className={styles.title}>Inscríbite a nuestros cursos</h1>
+          <div className={styles.courses}>
+            {courses.map((course) => (
+              <div key={course.id} className={styles.course}>
+                <div className={styles.coursecontenido}>
+                  <Link href={`/courses/${course.id}`}>
+                    <h2 className={styles.name}>{course.name}</h2>
+                  </Link>
+
+                  <Link href={`/courses/${course.id}`}>
+                    <Image
+                      src={course.photo}
+                      width={300}
+                      height={200}
+                      justifyContent="center"
+                    />
+                  </Link>
+
+                  <div className={styles.description}>{course.description}</div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href={`/courses/${course.id}`}
+                  >
+                    Más información
+                  </Button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+
       </div>
     </div>
   );

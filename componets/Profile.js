@@ -146,9 +146,10 @@ const Profile = () => {
             variant="contained"
             size="medium"
             background="#408AB4"
+            onClick={handleClose}
           >
             {" "}
-            EDITAR{" "}
+            Cerrar{" "}
           </Button>
         </div>
       </Modal>

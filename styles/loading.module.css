@@ -13,7 +13,7 @@
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    border: 2px solid #b42626;
+    border: 2px solid #1024a8;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -34,7 +34,7 @@
     animation: blob-left 1s infinite ease-in;
 }
 .spinner .moveBlob {
-    background: #b42626;
+    background: #1024a8;
     top: 0;
     -webkit-animation: blob-spinner-mover 1s infinite ease-in;
     animation: blob-spinner-mover 1s infinite ease-in;

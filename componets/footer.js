@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         padding:"10px",
         fontSize:"20px",
+        bottom:"0%",
+        position:"fixed",
+        width:"100%",
+        alignSelf:"flex-end",
 
     },
     iconos: {
@@ -22,9 +26,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Footer() {
+    //let styleFooter={ zIndex:"100",width:"100%",bottom:"0px !important",alignSelf:"flex-end",position:"fixed"}
     const classes = useStyles();
     return (
         <div>
+
             <footer className={classes.footer}>
                 <Container>
                      <Grid container xs={12}>
@@ -89,7 +95,7 @@ export default function Footer() {
 
                          <Grid xs={3}>
                              <p>
-                                 <Link href="/courses"><u>Nuestros cursos</u></Link>
+                                 <Link href="/"><u>Nuestros cursos</u></Link>
                              </p>
 
                          </Grid>

@@ -13,11 +13,11 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "@/styles/theme";
 import { AuthProvider } from "../contexts/auth";
-import Logout from "../componets/logout";
 import Footer from "../componets/footer";
 import NProgress from 'nprogress'
 import { useRouter } from 'next/router'
 import '../public/nprogress.css'
+import Header from "../componets/Header";
 
 
 export default function MyApp(props) {
@@ -63,7 +63,7 @@ export default function MyApp(props) {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Logout />
+          <Header/>
 
           <Component {...pageProps} />
           <Footer/>
