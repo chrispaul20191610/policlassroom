@@ -2,30 +2,75 @@ import api from "../../api";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
+import { makeStyles } from "@material-ui/core/styles";
+import styles from "@/styles/Course.info.module.css";
+import Register from "../../componets/Register";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  large: {
+    width: theme.spacing(20),
+    height: theme.spacing(20),
+  },
+}));
 
 const CoursePage = ({ course }) => {
+  const classes = useStyles();
   if (!course) {
     return "Cargando datos ...";
   }
 
   return (
-    <div>
+    <>
       <Head>
-        <title>Poli Curso </title>
+        <title>PoliClassroom</title>
       </Head>
 
-      <h3>{course.name}</h3>
-
-      <Image src={course.photo} width={640} height={480} />
-      <div>
-        <p>
-          Profesor: {course.teacher.name} {course.teacher.last_name}
-        </p>
-        <br></br>
-        <p>Corta Bio: {course.teacher.descriptio}</p>
+      <div className={styles.header}>
+        <Button>
+          <Link href="/">
+            <ArrowBackIosIcon />
+          </Link>
+        </Button>
+        <h1 className={styles.title}>Poli Curso</h1>
       </div>
-      <Link href="/courses">Volver a la lista de cursos</Link>
-    </div>
+
+      <div className={styles.section}>
+        <div className={styles.info}>
+          <h3>{course.name}</h3>
+          <p>{course.description}</p>
+          <Register color="primary" />
+        </div>
+        <Image src={course.photo} width={640} height={480} />
+      </div>
+
+      <h1 className={styles.title}>Profesor</h1>
+
+      <div className={styles.section}>
+        <div className={styles.teacher}>
+          <Avatar
+            alt={course.teacher.name}
+            src={course.teacher.avatar}
+            className={classes.large}
+          />
+          <p>
+            Profesor: {course.teacher.name} {course.teacher.last_name}
+          </p>
+        </div>
+
+        <div className={styles.info}>
+          <p>Corta Bio: {course.teacher.description}</p>
+        </div>
+      </div>
+    </>
   );
 };
 
