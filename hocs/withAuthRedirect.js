@@ -1,6 +1,7 @@
 import { useAuth } from "../contexts/auth";
 import Routes from "../constants/routes";
 import { useRouter } from "next/router";
+import Loading from "../componets/loading";
 
 /**
  * Support client-side conditional redirecting based on the user's
@@ -17,14 +18,16 @@ import { useRouter } from "next/router";
 export default function withAuthRedirect({
   WrappedComponent,
   expectedAuth,
+                                           LoadingComponent = Loading,
   location,
+
 }) {
   return (props) => {
     const { user } = useAuth();
     const router = useRouter();
 
     if (user === null) {
-      return <div>Cargando los datos</div>;
+      return <LoadingComponent/>;
     }
 
     const isAuthenticated = !!user;

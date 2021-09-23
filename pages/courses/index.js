@@ -6,9 +6,6 @@ import Link from "next/link";
 import styles from "@/styles/courses.module.css";
 import {Button} from "@material-ui/core";
 
-
-
-
 const CoursesPage = ({ courses}) => {
     if (!courses) {
         return "Cargando cursos ...";
@@ -47,8 +44,13 @@ const CoursesPage = ({ courses}) => {
                                      ))}
 
                                  </div>
+
              </div>
+
+
          );
+
+
 
 };
 
