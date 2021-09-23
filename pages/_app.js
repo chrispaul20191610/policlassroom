@@ -13,11 +13,11 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "@/styles/theme";
 import { AuthProvider } from "../contexts/auth";
-import Footer from "../componets/footer";
+import Footer from "../componentes/footer";
 import NProgress from 'nprogress'
 import { useRouter } from 'next/router'
 import '../public/nprogress.css'
-import Header from "../componets/Header";
+import Header from "../componentes/Header";
 
 
 export default function MyApp(props) {

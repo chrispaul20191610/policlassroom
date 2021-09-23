@@ -1,7 +1,7 @@
 import { useAuth } from "../contexts/auth";
 import Routes from "../constants/routes";
 import { useRouter } from "next/router";
-import Loading from "../componets/loading";
+import Loading from "../componentes/loading";
 
 /**
  * Support client-side conditional redirecting based on the user's

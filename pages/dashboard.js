@@ -1,6 +1,6 @@
 import withAuth from "../hocs/withAuth";
-import HomeTeacher from "../componets/HomeTeacher";
-import HomeStudent from "../componets/HomeStudent";
+import HomeTeacher from "../componentes/HomeTeacher";
+import HomeStudent from "../componentes/HomeStudent";
 
 const Dashboard = (props) => {
   const { user } = props;

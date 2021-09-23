@@ -7,8 +7,8 @@ import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "@/styles/Course.info.module.css";
-import Register from "../../componets/Register";
-import Loading from "../../componets/loading";
+import Register from "../../componentes/Register";
+import Loading from "../../componentes/loading";
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({

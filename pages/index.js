@@ -6,7 +6,7 @@ import Link from "next/link";
 import styles from "@/styles/courses.module.css";
 import { Button } from "@material-ui/core";
 import withoutAuth from "hocs/withoutAuth";
-import Loading from "../componets/loading";
+import Loading from "../componentes/loading";
 
 const CoursesPage = ({ courses }) => {
 
